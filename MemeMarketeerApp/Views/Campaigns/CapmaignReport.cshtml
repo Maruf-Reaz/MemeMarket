@@ -1,0 +1,270 @@
+﻿@model MemeMarketeerApp.Models.Campaign
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+@section Css {
+    @{await Html.RenderPartialAsync("_DataTableCssPartial");}
+}
+
+
+@section Sole {
+    <style>
+        .topActionFallbackUrl {
+            display: none;
+        }
+
+        #table_1 thead:first-child tr th:first-child {
+            width: 90%
+        }
+
+        div.dt-loading {
+            display: none;
+        }
+
+        .report-logo {
+            width: 200px;
+            height: 55px;
+        }
+
+        .bn-logo {
+            width: 75px;
+        }
+
+        .cash-pay {
+            border: 1px solid #000;
+            padding: 0 5px 0 5px;
+        }
+        .costPerSomething {
+            background-color: #74F700;
+        }
+
+        .bottom-info {
+            padding-left: 10px
+        }
+
+        .received-by {
+            border: 1px solid #000;
+        }
+    </style>
+}
+
+<div class="card-body px-0 pb-2 pt-3" id="main_content">
+
+    <div class="col-lg-12">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-12 text-center">
+                <img class="report-logo" src="~/asset/img/logo.png" alt="...">
+                @*<h2 class="h2 text-center text-uppercase mb-0 print-style5">"Traffic that matters"</h2>*@
+
+                <p class="text-center mb-0 print-style5">"Traffic that matters"</p>
+                <h2 class="h2 text-center text-uppercase mb-3 mt-2 print-style6 cash-pay d-inline-block">Campaingn Report for @ViewBag.Campaign.Client.Name</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mx-0">
+            <div class="col-lg-6 text-left">
+                <div class="mt-0 mb-4">
+                    @*<h5 class="mb-0" style="font-weight:400">Check No.:</h5>*@
+                    <h3 class="mb-0 mt-0" style="font-weight:700">Greetings, @ViewBag.Campaign.Client.Name</h3>
+                    <br />
+                    <h3 class="mb-0 mt-0" style="font-weight:400">We have successfully completed your order.</h3>
+                </div>
+            </div>
+            <div class="col-lg-6 text-right">
+                <div class="mt-0 mb-4">
+                    @*<h5 class="mb-0" style="font-weight:400">Check No.:</h5>*@
+                    <h5 class="mb-0 mt-0" style="font-weight:400">Start Date : @String.Format("{0:dd-MM-yyyy}", DateTime.Now) </h5>
+                    <h5 class="mb-0 mt-0" style="font-weight:400">End Date : @String.Format("{0:dd-MM-yyyy}", DateTime.Now)</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="tabl" class="table align-items-center table-hover table-striped table-bordered">
+
+
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="6" class="text-center border-bottom ac-head-title">Order Details</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td  class="text-center">
+                        Budget
+                    </td>
+
+                    <td colspan="2" class="text-center">
+                        @ViewBag.Campaign.TotalBudget ₹
+                    </td>
+                    <td colspan="2" class="text-center">
+                        Expected impressions
+                    </td>
+
+                    <td class="text-center">
+                        @ViewBag.Campaign.TargetImpression
+                    </td>
+                </tr>
+            </tbody>
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="7" class="text-center border-bottom ac-head-title">Results</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">
+                        Followers Generated
+                    </td>
+                    <td class="text-center">
+                        Impressions Generated
+                    </td>
+                    <td class="text-center">
+                        Link Clicks
+                    </td>
+                    <td class="text-center">
+                        CPF
+                    </td>
+                    <td class="text-center">
+                        CPM
+                    </td>
+                    <td class="text-center">
+                        CPC
+                    </td>
+                  
+
+
+                 
+
+
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        @ViewBag.Campaign.TotalFollowerIncreament
+                    </td>
+                    <td class="text-center">
+                        @ViewBag.GeneratedImpression
+                    </td>
+
+                    <td class="text-center">
+                        @ViewBag.Campaign.TotalLinkClicked
+                    </td>
+                    <td class="text-center">
+                        @String.Format("{0:.##}", ViewBag.CostPerFollwer)  ₹
+                    </td>
+
+
+                    <td class="text-center">
+                        @String.Format("{0:.##}", ViewBag.CostPer1000Impression)  ₹
+                    </td>
+
+                    @if (ViewBag.CostPerClick == 0)
+                    {
+                        <td class="text-center">
+                            N/A
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">
+                            @String.Format("{0:.##}", ViewBag.CostPerClick)  ₹
+                        </td>
+                    }
+                </tr>
+
+            </tbody>
+
+            <thead class="thead-light">
+
+                <tr>
+                    <th colspan="4" class="text-center border-bottom ac-head-title">Page</th>
+                    <th colspan="3" class="text-center border-bottom ac-head-title">Post Type</th>
+                </tr>
+
+
+
+            </thead>
+            <tbody>
+
+
+                @foreach (var post in ViewBag.Campaign.Posts)
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            @post.Affiliate.Name
+                        </td>
+                        <td colspan="3" class="text-center">
+                            @post.PostType.Name
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <div class="row mx-0">
+            <div class="col-lg-12">
+                <div class="mt-4">
+                    <h4 class="mb-0 mt-0" style="font-weight:600">We hope you are happy with the results.</h4>
+                    <h4 class="mb-0 mt-0" style="font-weight:600">Thank you for trusting TRAFIKGRAM. We look forward to work with you again.</h4>
+                    <h4 class="mb-0 mt-0" style="font-weight:400">**CPC- cost per click</h4>
+                    <h4 class="mb-0 mt-0" style="font-weight:400">**CPF-cost per follower</h4>
+                    <h4 class="mb-0 mt-0" style="font-weight:400">**CPM- cost per 1000 impressions</h4>
+                </div>
+            </div>
+
+            @*<div class="col-lg-4">
+                    <div class="mt-4 text-center">
+                        <div class="received-by">
+                            <h5 class="mb-0 mt-0" style="font-weight:400">Authorized Presonnel</h5>
+                            <h5 class="mb-1 mt-5" style="font-weight:400">Signature</h5>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+
+
+</div>
+<div id="editor"></div>
+<div class="col-lg-12">
+    <div class="text-center my-3">
+        <button class="btn btn-info" onclick="pop_print()"><i class="fa fa-print mr-2"></i>Print</button>
+        <a asp-controller="Campaigns" asp-action="CapmaignReportWithImpression" asp-route-id="@ViewBag.Campaign.Id" class="btn btn-primary">With Details</a>
+        <a asp-controller="Campaigns" asp-action="CapmaignReportNoDetails" asp-route-id="@ViewBag.Campaign.Id" class="btn btn-warning">With No Details</a>
+    </div>
+</div>
+@section Scripts {
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/datatable/js/jquery.dataTables.min.js"></script>
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/window.print.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+    <script>
+
+
+        function pop_print() {
+            w = window.open(null, 'Print_Page', 'scrollbars=yes');
+            var custom = '<style>' +
+                '.table-bordered th.ac-head-title{border-left:0!important;border-right:0!important;padding-top: 5px;padding-bottom: 5px;}.table-responsive{display:block;width:100%}table{border-collapse:collapse}.table td, .table th{padding:3px}.table .thead-light th{color:#fff;background:#355C7D;border-bottom:0;border-top:0}.print-style1{margin-top:4rem!important}.print-style5{margin-top: 0!important;} @@page{size:auto;margin:0}.table thead th{font-size:12px}.table thead th{border-top: 1px solid #000!important;}.table-bordered td,.table-bordered th{border:1px solid #000!important;font-size: 13px;}table{width:100%}table tr{height:20px}.btn-default{display:none}.col-6{text-align:center}.mb-0{margin-bottom:0!important}.col-6 h4{margin-top:0;font-size: .9375rem;font-weight: 600;line-height: 1.5;}.col-6 h2{margin-top: 0;font-size: 1.25rem;font-weight: 600;line-height: 1.5;}.employee-photo{display:block;margin: auto auto 30px auto;width: 150px;}.avatar-upload{display:none}.table thead:first-child tr th:first-child{width:90%} .cash-pay {border: 1px solid #000;padding: 0 5px 0 5px;display: inline-block;}td.taka{text-align:right}.table tr th {font-size:13px}.table{width:100%;}.report-logo{width:200px;height: 55px;}.bn-logo{width:75px}.customstyle1print{display:none}.btn-info{display:none}.text-primary{color:#000!important;margin: 0 auto;}.print-style1{margin-top:4rem!important}.print-style5{margin-top:0px!important}.print-style6{margin-top:10px!important}.print-style2{margin-left: -11px;} @@page{size:auto;margin-left: 7mm;}.received-by{border:1px solid #000}.costPerSomething{background-color: #74F700 !important;}'
+                + '</style>';
+            w.document.write(custom + windowPrint + jQuery('#main_content').html());
+            w.document.close();
+            w.print();
+        }
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

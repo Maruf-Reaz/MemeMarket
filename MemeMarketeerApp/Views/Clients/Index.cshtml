@@ -1,0 +1,131 @@
+﻿@model IEnumerable<MemeMarketeerApp.Models.Client>
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+@section Css {
+    @{await Html.RenderPartialAsync("_DataTableCssPartial");}
+}
+
+@section Sole {
+    <style>
+
+
+        .table tr th:last-child {
+            width: 100px;
+        }
+
+        .table tr th {
+            text-align: center;
+        }
+
+        .table tr td {
+            text-align: center;
+        }
+    </style>
+}
+
+<div class="container-fluid mt-4">
+    <div class="card animated fadeIn overflow-hidden">
+        <div class="card-header p-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0 skewed skewed-yellow text-dark d-inline-block text-uppercase ls-1">Clients</h3>
+                </div>
+                <div class="col text-right">
+                    <a asp-action="Create" asp-route-fromHome="0" class="btn btn-create">New</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+            <div class=" table-responsive">
+
+                <table class="table align-items-center table-striped table-bordered" id="datatable-basic">
+                    <thead class="thead-light">
+                        <tr>
+
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Link
+                            </th>
+
+                            
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                WhatsApp
+                            </th>
+
+
+                            <th class="text-center">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    <a target="_blank" href="@item.Link">Link</a>
+                                </td>
+
+                            
+
+                                <td>
+                                    @item.Email
+                                </td>
+
+                                <td>
+                                    @item.WANumber
+                                </td>
+
+
+
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        @if (item.Status == 0)
+                                        {
+                                            <a class="btn btn-greenyellow btn-sm" asp-action="Edit" asp-route-id="@item.Id" asp-route-fromHome="0">Edit</a>
+                                            <a class="btn btn-success btn-sm" asp-action="Enable" asp-route-id="@item.Id" asp-route-fromHome="0">Enable</a>
+                                        }
+                                        else if (item.Status == 1)
+                                        {
+                                            <a class="btn btn-danger btn-sm" asp-action="Disable" asp-route-id="@item.Id" asp-route-fromHome="0">Disable</a>
+                                        }
+
+                                        <a class="btn btn-default btn-sm" asp-action="ClientCampaign" asp-controller="Campaigns" asp-route-clientId="@item.Id">Campaigns</a>
+                                        <a class="btn btn-primary btn-sm" asp-action="Details" asp-controller="Clients" asp-route-id="@item.Id">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/datatable/js/jquery.dataTables.min.js"></script>
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

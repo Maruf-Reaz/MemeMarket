@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Client Campaigns";
+}
+
+@section Css {
+    <link asp-append-version="true" rel="stylesheet" href="~/vendor/chart.js/Chart.min.js" />
+}
+
+@section Sole {
+    <style>
+        .gcb-table {
+            padding: 3px 10px !important;
+        }
+    </style>
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Client Name</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Client.Name</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+
+                @if (ViewBag.ClientCampaigns.Count != 0)
+                {
+                    @foreach (var clientCampaign in ViewBag.ClientCampaigns)
+                    {
+                        <div class="card-header p-3 border-0">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="text-left">
+                                        <h1 class="mb-0 skewed skewed-green d-inline-block text-white ls-1 text-uppercase">@clientCampaign.Campaign.Title</h1>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-right">
+                                        <a asp-controller="Campaigns" asp-action="AddActivity" asp-route-id="@clientCampaign.Campaign.Id" asp-route-fromHome="1" class="btn btn-primary btn-sm">View Activity</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-custom">
+                                    <tr>
+                                        <th class="text-center align-middle" colspan="6">Affiliates Used</th>
+                                      
+                                    </tr>
+
+                                    <tr>
+                                        <th class="text-center align-middle">Name</th>
+                                        <th class="text-center align-middle">Instagram</th>
+                                        <th class="text-center align-middle">Catagory</th>
+                                        <th class="text-center align-middle">Language</th>
+                                        <th class="text-center align-middle">WhatsApp</th>
+                                        <th class="text-center align-middle">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var affiliate in clientCampaign.Affiliates)
+                                    {
+                                    <tr>
+
+                                        <td class="text-center align-middle">@affiliate.Name</td>
+                                        <td class="text-center align-middle"> <a  target="_blank" href="@affiliate.InstaLink">Link</a></td>
+                                        @if (affiliate.Catagory != null)
+                                        {
+                                            <td class="text-center align-middle">@affiliate.Catagory.Name</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center align-middle">N/A</td>
+                                        }
+                                        @if (affiliate.AffiliateLanguage != null)
+                                        {
+                                            <td class="text-center align-middle">@affiliate.AffiliateLanguage.Name</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center align-middle">N/A</td>
+                                        }
+
+                                        <td class="text-center align-middle">@affiliate.WANumber</td>
+                                        <td class="text-center align-middle">@affiliate.Email</td>
+                                    </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+
+                }
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script asp-append-version="true" src="~/vendor/chart.js/Chart.min.js"></script>
+    <script asp-append-version="true" src="~/vendor/chart.js/utils.js"></script>
+    @*<script asp-append-version="true" src="~/vendor/chart.js/chartjs-plugin-datalabels.js"></script>*@
+
+    <script>
+
+
+                                        //var purple_orange_gradient = ctx.createLinearGradient(100, 0, 100, 700);
+                                        //purple_orange_gradient.addColorStop(0, 'rgba(255,165,0,0.5)');
+                                        //purple_orange_gradient.addColorStop(1, 'rgba(199, 34, 184, 0.5)');
+
+    </script>
+}

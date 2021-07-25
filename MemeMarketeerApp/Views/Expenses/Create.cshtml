@@ -1,0 +1,66 @@
+﻿@model MemeMarketeerApp.Models.Expense
+@{
+    ViewData["Title"] = "Create Expence";
+}
+@section Css {
+    <link asp-append-version="true" type="text/css" rel="stylesheet" href="~/vendor/select2/select2.min.css" />
+}
+
+<div class="container-fluid mt-4">
+    <div class="card mb-8 ">
+        <div class="card-header p-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0 skewed skewed-yellow text-dark d-inline-block text-uppercase ls-1">Create Expence</h3>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Campaign/Reason</label>
+                            <select asp-for="CampaignId" class="form-control select2" data-toggle="select" asp-items="ViewBag.CampaignId">
+                                <option value="" selected>Company Cost</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Details</label>
+                            <input asp-for="Details" class="form-control" />
+                            <span asp-validation-for="Details" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Amount</label>
+                            <input asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="form-group mb-0">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/select2/select2.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

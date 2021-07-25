@@ -1,0 +1,104 @@
+﻿
+@model MemeMarketeerApp.Models.Expense
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="container-fluid mt-4">
+    <div class="card mb-4 animated fadeIn">
+        <div class="card-header">
+            <h3 class="text-danger mb-0">Confirm Delete</h3>
+            <div class="col text-right">
+                <a asp-action="Index" class="btn btn-back">Back</a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Campaign/Reason</label>
+                        @if (Model.Campaign==null)
+                        {
+                        <input value="Company Cost" class="form-control" disabled />
+                        }
+                        else
+                        {
+                        <input asp-for="Campaign.Title" class="form-control" disabled />
+                        }
+
+                       
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Details</label>
+                        <input asp-for="Details" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Amount</label>
+                        <input asp-for="Amount" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <form class="delete-form" asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="button" value="Delete" class="btn btn-danger delete-button mt-2" />
+                    </form>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input.delete-button').click(function () {
+                $.confirm({
+                    icon: 'fa fa-trash',
+                    theme: 'modern',
+                    animation: 'zoom',
+                    closeAnimation: 'zoom',
+                    backgroundDismiss: true,
+                    backgroundDismissAnimation: 'shake',
+                    closeIcon: true,
+                    html: true,
+                    title: 'Confirmation!',
+                    content: 'This cannot be undone.',
+                    backgroundDismiss: true,
+                    typeAnimated: true,
+                    smoothContent: true,
+                    type: 'red',
+                    buttons: {
+                        delete: {
+                            text: 'Delete',
+                            btnClass: 'btn-danger',
+                            action: function () {
+                                $(".delete-form").submit();
+                            },
+                        },
+                        cancel: {
+                            text: 'Cancel',
+                            btnClass: 'btn-success',
+                            action: function () {
+
+                            },
+                        },
+                    }
+                });
+            });
+        });
+    </script>
+}
+

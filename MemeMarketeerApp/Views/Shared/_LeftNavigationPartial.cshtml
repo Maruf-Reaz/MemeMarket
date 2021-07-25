@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<MemeMarketeerApp.Models.Common.Authentication.ApplicationUser> UserManager
+@{
+    var user = await UserManager.FindByNameAsync(Context.User.Identity.Name);
+}
+
+<nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <div class="sidenav-header d-flex align-items-center">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img asp-append-version="true" src="~/asset/img/TG.png" class="navbar-brand-img" alt="...">
+              
+            </a>
+            <div class="mx-auto">
+                <div class="sidenav-toggler active" data-action="sidenav-unpin" data-target="#sidenav-main">
+                    <div class="sidenav-toggler-inner">
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                        <i class="sidenav-toggler-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-inner">
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <ul class="navbar-nav">
+                    @if (await UserManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        <li class="nav-item nav_level0">
+                            <a class="nav-link position-relative" asp-controller="Home" asp-action="Index">
+                                <i class="far fa-tachometer-alt text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="Affiliates" asp-action="Index">
+                                <i class="far fa-users text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Affiliates</span>
+                            </a>
+                        </li>
+
+
+
+                         <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="Clients" asp-action="Index">
+                                <i class="far fa-user text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Clients</span>
+                            </a>
+                        </li>
+                          <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="Campaigns" asp-action="Index">
+                                <i class="far fa-image text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Campaigns</span>
+                            </a>
+                        </li>
+                          <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="Expenses" asp-action="Index">
+                                <i class="far fa-exchange text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Expences</span>
+                            </a>
+                        </li>
+                         <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="AffiliateLanguages" asp-action="Index">
+                                <i class="far fa-language text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Languages</span>
+                            </a>
+                        </li>
+                         <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="Catagories" asp-action="Index">
+                                <i class="far fa-code-branch text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Catagories</span>
+                            </a>
+                        </li>
+                         <li class="nav-item nav_level0">
+
+                            <a class="nav-link position-relative" asp-controller="Reports" asp-action="AddCriteria">
+                                <i class="far fa-chart-bar text-gray"></i>
+                                <span class="nav-link-text text-nowrap text-dark">Campaign Planner</span>
+                            </a>
+                        </li>
+
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

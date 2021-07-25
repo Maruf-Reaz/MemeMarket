@@ -1,0 +1,79 @@
+﻿@model MemeMarketeerApp.Models.Client
+@{
+    ViewData["Title"] = "Edit Client";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card mb-8 ">
+        <div class="card-header p-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0 skewed skewed-yellow text-dark d-inline-block text-uppercase ls-1">Edit Client</h3>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="FromHome" />
+                <input type="hidden" asp-for="Status" />
+                <input type="hidden" asp-for="AddintionDate" />
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Link</label>
+                            <input asp-for="Link" class="form-control" />
+                            <span asp-validation-for="Link" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                   
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">WhatsApp</label>
+                            <input asp-for="WANumber" class="form-control" />
+                            <span asp-validation-for="WANumber" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="form-group mb-0">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,137 @@
+﻿@model MemeMarketeerApp.Models.Affiliate
+@{
+    ViewData["Title"] = "Edit Affiliate";
+}
+
+@section Css {
+    <link asp-append-version="true" type="text/css" rel="stylesheet" href="~/vendor/select2/select2.min.css" />
+}
+<div class="container-fluid mt-4">
+    <div class="card mb-8 ">
+        <div class="card-header p-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0 skewed skewed-yellow text-dark d-inline-block text-uppercase ls-1">Edit Affiliate</h3>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body p-3">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="FromHome" />
+                <input type="hidden" asp-for="Status" />
+                <input type="hidden" asp-for="AddintionDate" />
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Instagram Link</label>
+                            <input asp-for="InstaLink" class="form-control" />
+                            <span asp-validation-for="InstaLink" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Language</label>
+                            <select asp-for="AffiliateLanguageId" class="form-control" data-toggle="select" asp-items="ViewBag.AffiliateLanguageId"></select>
+                            <span asp-validation-for="InstaLink" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Catagory</label>
+                            <select asp-for="CatagoryId" class="form-control" data-toggle="select" asp-items="ViewBag.CatagoryId"></select>
+                            <span asp-validation-for="CatagoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Total Follwers</label>
+                            <input asp-for="TotalFollwers" class="form-control" />
+                            <span asp-validation-for="TotalFollwers" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">WhatsApp</label>
+                            <input asp-for="WANumber" class="form-control" />
+                            <span asp-validation-for="WANumber" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Post Payment</label>
+                            <input asp-for="PaymentForPost" class="form-control" />
+                            <span asp-validation-for="PaymentForPost" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Story Payment</label>
+                            <input asp-for="PaymentForStory" class="form-control" />
+                            <span asp-validation-for="PaymentForStory" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label class="form-control-label text-dark ls-1 text-uppercase">Post+Story Payment</label>
+                            <input asp-for="PaymentForPostPlusStory" class="form-control" />
+                            <span asp-validation-for="PaymentForPostPlusStory" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="form-group mb-0">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/select2/select2.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

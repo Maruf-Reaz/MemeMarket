@@ -1,0 +1,354 @@
+﻿@{
+    ViewData["Title"] = "Affiliate";
+}
+
+@section Css {
+    <link asp-append-version="true" rel="stylesheet" href="~/vendor/chart.js/Chart.min.js" />
+}
+
+@section Sole {
+    <style>
+        .gcb-table {
+            padding: 3px 10px !important;
+        }
+    </style>
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Affiliate Name</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.Name</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">WhatsApp</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.WANumber</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Email</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.Email</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-mail-bulk"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <a target="_blank" href="@ViewBag.Affiliate.InstaLink">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <h1 class="card-title text-uppercase text-muted mb-0 text-white">Instagram Page</h1>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Catagory</h5>
+                                    @if (ViewBag.Affiliate.Catagory != null)
+                                    {
+                                        <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.Catagory.Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="h2 font-weight-bold mb-0 text-white">N/A</span>
+                                    }
+
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-code-branch"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Language</h5>
+                                    @if (ViewBag.Affiliate.AffiliateLanguage != null)
+                                    {
+                                        <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.AffiliateLanguage.Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="h2 font-weight-bold mb-0 text-white">N/A</span>
+                                    }
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-language"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Followers</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.TotalFollwers</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Average Post Reach</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.AveragePostReach</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-money-bill"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Average Story Views</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.AverageStoryView</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Payment for Post</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.PaymentForPost</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Payment for Story</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.PaymentForStory</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-stats bg-gradient-indigo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Payment for Post+Story</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.Affiliate.PaymentForPostPlusStory</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-12 col-md-12">
+                    <div class="card card-stats bg-gradient-success">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Paid</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.TotalPaid</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header p-3 border-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-left">
+                                <h3 class="mb-0 skewed skewed-green d-inline-block text-white ls-1 text-uppercase">Participated Campaigns </h3>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-custom">
+
+
+                            <tr>
+                                <th class="text-center align-middle">Title</th>
+                                <th class="text-center align-middle">CLient</th>
+                                <th class="text-center align-middle">Budget</th>
+                                <th class="text-center align-middle">Target Impression</th>
+                                <th class="text-center align-middle">Gen. Impression</th>
+                                <th class="text-center align-middle">Link Clicked</th>
+                                <th class="text-center align-middle">Gen. Follwers</th>
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var campaign in ViewBag.Campaigns)
+                            {
+                                <tr>
+
+                                    <td class="text-center align-middle">@campaign.Campaign.Title</td>
+                                    <td class="text-center align-middle">@campaign.Campaign.Client.Name</td>
+
+                                    <td class="text-center align-middle">@campaign.Campaign.TotalBudget</td>
+                                    <td class="text-center align-middle">@campaign.Campaign.TargetImpression</td>
+                                    <td class="text-center align-middle">@campaign.TotalImpressionGenerated</td>
+                                    <td class="text-center align-middle">@campaign.Campaign.TotalFollowerIncreament</td>
+                                    <td class="text-center align-middle">@campaign.Campaign.TotalLinkClicked</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+
+                                            <a class="btn btn-default btn-sm" asp-controller="Campaigns" asp-action="AddActivity" asp-route-id="@campaign.Campaign.Id" asp-route-fromHome="1">Activities</a>
+                                            <a class="btn btn-primary btn-sm" asp-controller="Campaigns" asp-action="Details" asp-route-id="@campaign.Campaign.Id">View</a>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script asp-append-version="true" src="~/vendor/chart.js/Chart.min.js"></script>
+    <script asp-append-version="true" src="~/vendor/chart.js/utils.js"></script>
+    @*<script asp-append-version="true" src="~/vendor/chart.js/chartjs-plugin-datalabels.js"></script>*@
+
+    <script>
+
+
+                                                        //var purple_orange_gradient = ctx.createLinearGradient(100, 0, 100, 700);
+                                                        //purple_orange_gradient.addColorStop(0, 'rgba(255,165,0,0.5)');
+                                                        //purple_orange_gradient.addColorStop(1, 'rgba(199, 34, 184, 0.5)');
+
+    </script>
+}

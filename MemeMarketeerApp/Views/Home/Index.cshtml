@@ -1,0 +1,613 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+@section Css {
+    <link asp-append-version="true" rel="stylesheet" href="~/vendor/chart.js/Chart.min.js" />
+}
+
+@section Sole {
+    <style>
+        .gcb-table {
+            padding: 3px 10px !important;
+        }
+    </style>
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-success">
+                        <a asp-controller="Affiliates" asp-action="Index">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Affiliates</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.AffiliateCount</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                        <i class="far fa-users"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-white mr-2"><i class="fa fa-arrow-up"></i>@ViewBag.AffiliateCountThisMonth</span>
+                                <span class="text-nowrap text-lighter">Last 30 Days</span>
+                            </p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-success">
+
+                        <a asp-controller="Clients" asp-action="Index">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0 text-white">Clients</h5>
+                                        <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.ClientCount</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                            <i class="far fa-user"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-sm">
+                                    <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> @ViewBag.ClientCountThisMonth</span>
+                                    <span class="text-nowrap text-lighter">Last 30 Days</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-success">
+                        <a asp-controller="Campaigns" asp-action="Index">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Campaigns</h5>
+                                        <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.CampaignCount</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+                                            <i class="far fa-image"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-sm">
+                                    <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> @ViewBag.CampaignCountThisMonth</span>
+                                    <span class="text-nowrap text-lighter">Last 30 Days</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-info">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Followers Generated</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.FollowersGeneratedCount</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-user-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> @ViewBag.FollowersGeneratedCountThisMonth</span>
+                                <span class="text-nowrap text-lighter">Last 30 Days</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-info">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Impression</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.ImpressionCount</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-thumbs-up"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> @ViewBag.ImpressionCountThisMonth</span>
+                                <span class="text-nowrap text-lighter">Last 30 Days</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-info">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Link Clicks</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.LinkClickCount</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-mouse-pointer"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> @ViewBag.LinkClickCountThisMonth</span>
+                                <span class="text-nowrap text-lighter">Last 30 Days</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-info">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Income</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.TotalIncome</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-money-bill"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-warning">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Expence</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@ViewBag.TotalExpence</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-exchange"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @{
+                    double totalProfit = ViewBag.TotalIncome - ViewBag.TotalExpence;
+                }
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-stats bg-gradient-success">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Profit</h5>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@totalProfit</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-white text-default rounded-circle shadow">
+
+                                        <i class="far fa-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header p-3 border-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-left">
+                                <h3 class="mb-0 skewed skewed-green d-inline-block text-white ls-1 text-uppercase">Campaigns</h3>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <a asp-controller="Campaigns" asp-action="Create" asp-route-fromHome="1" class="btn btn-create">Add Campaign</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-custom">
+
+
+                            <tr>
+                                <th class="text-center align-middle">Title</th>
+                                <th class="text-center align-middle">CLient</th>
+                                <th class="text-center align-middle">Budget</th>
+                                <th class="text-center align-middle">Expence</th>
+                                <th class="text-center align-middle">Profit</th>
+                                <th class="text-center align-middle">Target Impression</th>
+                                <th class="text-center align-middle">Gen. Impression</th>
+                                <th class="text-center align-middle">Gen. Followers</th>
+                                <th class="text-center align-middle">Link Clicked</th>
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var campaign in ViewBag.Campaigns)
+                            {
+                                <tr>
+
+                                    <td class="text-center align-middle">@campaign.Campaign.Title</td>
+                                    <td class="text-center align-middle">@campaign.Campaign.Client.Name</td>
+
+                                    <td class="text-center align-middle">@campaign.Campaign.TotalBudget</td>
+
+                                    @if (campaign.Campaign.Status == 0 && campaign.TotalExpence == null)
+                                    {
+                                        <td class="text-center align-middle" style="color:orangered">
+                                            Ongoing
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center align-middle">
+                                            @campaign.TotalExpence
+                                        </td>
+                                    }
+
+                                    @{
+                                        double? profit = campaign.Campaign.TotalBudget - campaign.TotalExpence;
+                                    }
+                                    @if (campaign.Campaign.Status == 0 && campaign.TotalExpence == null)
+                                    {
+                                        <td class="text-center align-middle" style="color:orangered">
+                                            Ongoing
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        if (profit < 0)
+                                        {
+                                            <td class="text-center align-middle" style="color:red">
+                                                @profit
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center align-middle">
+                                                @profit
+                                            </td>
+                                        }
+
+                                    }
+
+
+                                    <td class="text-center align-middle">@campaign.Campaign.TargetImpression</td>
+                                    @if (campaign.TotalImpressionGenerated == null && campaign.Campaign.Status == 0)
+                                    {
+                                        <td class="text-center align-middle" style="color:orangered">
+                                            Ongoing
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center align-middle" style="color:#2DCE89">
+                                            @campaign.TotalImpressionGenerated
+                                        </td>
+                                    }
+
+                                    @if (campaign.Campaign.Status == 0 && campaign.Campaign.TotalFollowerIncreament == null)
+                                    {
+                                        <td class="text-center align-middle" style="color:orangered">
+                                            Ongoing
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center align-middle" style="color:#2DCE89">
+                                            @campaign.Campaign.TotalFollowerIncreament
+                                        </td>
+                                    }
+
+
+                                    @if (campaign.Campaign.Status == 0 && campaign.Campaign.TotalLinkClicked == null)
+                                    {
+                                        <td class="text-center align-middle" style="color:orangered">
+                                            Ongoing
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center align-middle" style="color:#2DCE89">
+                                            @campaign.Campaign.TotalLinkClicked
+                                        </td>
+                                    }
+
+
+
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            @if (campaign.Campaign.Status == 0)
+                                            {
+                                                <a class="btn btn-greenyellow btn-sm" asp-controller="Campaigns" asp-action="Edit" asp-route-id="@campaign.Campaign.Id" asp-route-fromHome="1">Edit</a>
+
+                                                <a class="btn btn-success btn-sm" asp-controller="Campaigns" asp-action="AddActivity" asp-route-id="@campaign.Campaign.Id" asp-route-fromHome="1">Add Activity</a>
+
+                                            }
+                                            else if (campaign.Campaign.Status == 1)
+                                            {
+                                                <a class="btn btn-default btn-sm" asp-controller="Campaigns" asp-action="AddActivity" asp-route-id="@campaign.Campaign.Id" asp-route-fromHome="1">Activities</a>
+                                                <a class="btn btn-primary btn-sm" asp-controller="Campaigns" asp-action="Details" asp-route-id="@campaign.Campaign.Id">View</a>
+
+                                                if (campaign.Campaign.BitlyLink != "" && campaign.Campaign.BitlyLink != null)
+                                                {
+                                                    <a class="btn btn-success btn-sm" target="_blank" href="@campaign.Campaign.BitlyLink">Track</a>
+                                                }
+                                                <a class="btn btn-warning btn-sm" asp-controller="Campaigns" asp-action="CapmaignReport" asp-route-id="@campaign.Campaign.Id">Report</a>
+                                            }
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            @if (ViewBag.CampaignCount > 10)
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div class="btn-group">
+
+                                            <a class="btn btn-greenyellow btn-sm" asp-action="Index" asp-controller="Campaigns">View All</a>
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header p-3 border-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-left">
+                                <h3 class="mb-0 skewed skewed-green d-inline-block text-white ls-1 text-uppercase">Affiliates</h3>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <a asp-controller="Affiliates" asp-action="Create" asp-route-fromHome="1" class="btn btn-create">Add Affiliate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-custom">
+
+
+                            <tr>
+                                <th class="text-center align-middle">Name</th>
+                                <th class="text-center align-middle">Link</th>
+                                <th class="text-center align-middle">Catagory</th>
+                                <th class="text-center align-middle">Language</th>
+                                <th class="text-center align-middle">Total Followers</th>
+                                <th class="text-center align-middle">WhatsApp</th>
+                                <th class="text-center align-middle">Email</th>
+                                <th class="text-center align-middle">Post Payment</th>
+                                <th class="text-center align-middle">Story Payment</th>
+                                <th class="text-center align-middle">Post+Story Payment</th>
+
+
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var affiliate in ViewBag.Affiliates)
+                            {
+                                <tr>
+
+                                    <td class="text-center align-middle">@affiliate.Name</td>
+                                    <td class="text-center align-middle"> <a target="_blank" href="@affiliate.InstaLink">Link</a></td>
+
+                                    @if (affiliate.Catagory != null)
+                                    {
+                                        <td class="text-center align-middle">@affiliate.Catagory.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center align-middle">N/A</td>
+                                    }
+                                    @if (affiliate.AffiliateLanguage != null)
+                                    {
+                                        <td class="text-center align-middle">@affiliate.AffiliateLanguage.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center align-middle">N/A</td>
+                                    }
+
+
+
+
+                                    <td class="text-center align-middle">@affiliate.TotalFollwers</td>
+                                    <td class="text-center align-middle">@affiliate.WANumber</td>
+                                    <td class="text-center align-middle">@affiliate.Email</td>
+                                    <td class="text-center align-middle"> @affiliate.PaymentForPost </td>
+                                    <td class="text-center align-middle">  @affiliate.PaymentForStory  </td>
+                                    <td class="text-center align-middle"> @affiliate.PaymentForPostPlusStory </td>
+
+
+
+
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            @if (affiliate.Status == 0)
+                                            {
+                                                <a class="btn btn-greenyellow btn-sm" asp-action="Edit" asp-controller="Affiliates" asp-route-id="@affiliate.Id" asp-route-fromHome="1">Edit</a>
+                                                <a class="btn btn-success btn-sm" asp-action="Enable" asp-controller="Affiliates" asp-route-id="@affiliate.Id" asp-route-fromHome="1">Enable</a>
+                                            }
+                                            else if (affiliate.Status == 1)
+                                            {
+                                                <a class="btn btn-danger btn-sm" asp-action="Disable" asp-controller="Affiliates" asp-route-id="@affiliate.Id" asp-route-fromHome="1">Disable</a>
+                                            }
+                                            <a class="btn btn-primary btn-sm" asp-controller="Affiliates" asp-action="Details" asp-route-id="@affiliate.Id">View</a>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            @if (ViewBag.AffiliateCount > 10)
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div class="btn-group">
+
+                                            <a class="btn btn-greenyellow btn-sm" asp-action="Index" asp-controller="Affiliates">View All</a>
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header p-3 border-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-left">
+                                <h3 class="mb-0 skewed skewed-green d-inline-block text-white ls-1 text-uppercase">Clients</h3>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <a asp-controller="Clients" asp-action="Create" asp-route-fromHome="1" class="btn btn-create">Add Client</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-custom">
+
+
+                            <tr>
+                                <th class="text-center align-middle">Name</th>
+                                <th class="text-center align-middle">Link</th>
+                                <th class="text-center align-middle">WhatsApp</th>
+                                <th class="text-center align-middle">Email</th>
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var client in ViewBag.Clients)
+                            {
+                                <tr>
+
+                                    <td class="text-center align-middle">@client.Name</td>
+                                    <td class="text-center align-middle"> <a target="_blank" href="@client.Link">Link</a></td>
+                                    <td class="text-center align-middle">@client.WANumber</td>
+                                    <td class="text-center align-middle">@client.Email</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            @if (client.Status == 0)
+                                            {
+                                                <a class="btn btn-greenyellow btn-sm" asp-action="Edit" asp-controller="Clients" asp-route-id="@client.Id" asp-route-fromHome="1">Edit</a>
+                                                <a class="btn btn-success btn-sm" asp-action="Enable" asp-controller="Clients" asp-route-id="@client.Id" asp-route-fromHome="1">Enable</a>
+                                            }
+                                            else if (client.Status == 1)
+                                            {
+                                                <a class="btn btn-danger btn-sm" asp-action="Disable" asp-controller="Clients" asp-route-id="@client.Id" asp-route-fromHome="1">Disable</a>
+                                            }
+                                            <a class="btn btn-default btn-sm" asp-action="ClientCampaign" asp-controller="Campaigns" asp-route-clientId="@client.Id">Campaigns</a>
+                                            <a class="btn btn-primary btn-sm" asp-action="Details" asp-controller="Clients" asp-route-id="@client.Id">View</a>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            @if (ViewBag.ClientCount > 10)
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div class="btn-group">
+
+                                            <a class="btn btn-greenyellow btn-sm" asp-action="Index" asp-controller="Clients">View All</a>
+
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <script asp-append-version="true" src="~/vendor/chart.js/Chart.min.js"></script>
+    <script asp-append-version="true" src="~/vendor/chart.js/utils.js"></script>
+    @*<script asp-append-version="true" src="~/vendor/chart.js/chartjs-plugin-datalabels.js"></script>*@
+
+    <script>
+
+
+                                                        //var purple_orange_gradient = ctx.createLinearGradient(100, 0, 100, 700);
+                                                        //purple_orange_gradient.addColorStop(0, 'rgba(255,165,0,0.5)');
+                                                        //purple_orange_gradient.addColorStop(1, 'rgba(199, 34, 184, 0.5)');
+
+    </script>
+}

@@ -1,0 +1,109 @@
+﻿@model MemeMarketeerApp.Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_SecurityPartial.cshtml";
+}
+<link href="~/vendor/fonts/fontawesome-pro/css/pro.min.css" rel="stylesheet" />
+<style>
+    .validation-summary-errors ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .visibility {
+        right: 50px;
+        top: 30%;
+    }
+</style>
+
+<div class="wrapper fadeInDown">
+    <div class="container">
+        <div class="row">
+            <div id="formContent" class="mx-auto">
+                <div class="fadeIn first">
+                    <img class="cpa-login-logo my-3" src="~/asset/img/logo.png" id="icon" alt="User Icon" />
+                  
+                </div>
+                <form asp-action="Register" asp-controller="Account" method="post" autocomplete="off">
+                    <div asp-validation-summary="ModelOnly" class="text-sm small text-danger d-block"></div>
+
+                    <input  class="fadeIn second" asp-for="FullName" placeholder="Full Name" autocorrect="off" autocapitalize="off" autocomplete="off">
+                    <span asp-validation-for="FullName" class="text-sm small text-danger d-block"></span>
+
+
+
+                    <input id="login" class="fadeIn second" asp-for="UserName" placeholder="User Name" autocorrect="off" autocapitalize="off" autocomplete="off">
+                    <span asp-validation-for="UserName" class="text-sm small text-danger d-block"></span>
+
+                    <input  class="fadeIn second" asp-for="Email" placeholder="Email" autocorrect="off" autocapitalize="off" autocomplete="off">
+                    <span asp-validation-for="Email" class="text-sm small text-danger d-block"></span>
+
+                    <input class="fadeIn second" asp-for="PhoneNumber" placeholder="Phone Number" autocorrect="off" autocapitalize="off" autocomplete="off">
+                    <span asp-validation-for="PhoneNumber" class="text-sm small text-danger d-block"></span>
+
+                    <input  class="fadeIn second" asp-for="Address" placeholder="Address" autocorrect="off" autocapitalize="off" autocomplete="off">
+                    <span asp-validation-for="Address" class="text-sm small text-danger d-block"></span>
+
+
+                    <div class="position-relative">
+                        <input id="password" class="fadeIn third" placeholder="Password" asp-for="Password" autocomplete="off">
+                        <i id="pass" class="fadeIn third fa fa-eye ml-2 p-2 position-absolute visibility"></i>
+                    </div>
+                    <span asp-validation-for="Password" class="text-sm small text-danger d-block"></span>
+
+                    <div class="position-relative">
+                        <input id="confirmPassword" class="fadeIn third" placeholder="Confirm Password" asp-for="ConfirmPassword" autocomplete="off">
+                        <i id="conPass" class="fadeIn third fa fa-eye ml-2 p-2 position-absolute visibility"></i>
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-sm small text-danger d-block"></span>
+
+
+
+                    <input type="submit" class="fadeIn fourth" value="Sign Up">
+
+                    @*<div class="col-lg-12 mb-3">
+            <a asp-controller="Account" asp-action="Register">Registration</a>
+        </div>*@
+                </form>
+                @*<div id="formFooter">
+                        <input class="custom-control-input" asp-for="RememberMe" />
+                        <label class="custom-control-label ml-3" asp-for="RememberMe">
+                            <span class="remember-me">Remember Me?</span>
+                        </label>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#pass").on('click', function (event) {
+            event.preventDefault();
+            if ($('#password').attr("type") == "text") {
+                $('#password').attr('type', 'password');
+                $(this).removeClass("fa-eye-slash");
+                $(this).addClass("fa-eye");
+
+            } else if ($('#password').attr("type") == "password") {
+                $('#password').attr('type', 'text');
+                $(this).addClass("fa-eye-slash");
+                $(this).removeClass("fa-eye");
+            }
+        });
+        $("#conPass").on('click', function (event) {
+            event.preventDefault();
+            if ($('#confirmPassword').attr("type") == "text") {
+                $('#confirmPassword').attr('type', 'password');
+                $(this).removeClass("fa-eye-slash");
+                $(this).addClass("fa-eye");
+
+            } else if ($('#confirmPassword').attr("type") == "password") {
+                $('#confirmPassword').attr('type', 'text');
+                $(this).addClass("fa-eye-slash");
+                $(this).removeClass("fa-eye");
+            }
+        });
+    </script>
+}

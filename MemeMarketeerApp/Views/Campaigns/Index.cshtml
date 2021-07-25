@@ -1,0 +1,242 @@
+﻿@model IEnumerable<MemeMarketeerApp.Models.ViewModels.CampaignHomeViewModel>
+
+@{
+    ViewData["Title"] = "Campaigns";
+}
+
+@section Css {
+    @{await Html.RenderPartialAsync("_DataTableCssPartial");}
+}
+
+@section Sole {
+    <style>
+
+
+        .table tr th:last-child {
+            width: 100px;
+        }
+
+        .table tr th {
+            text-align: center;
+        }
+
+        .table tr td {
+            text-align: center;
+        }
+    </style>
+}
+
+<div class="container-fluid mt-4">
+    <div class="card animated fadeIn overflow-hidden">
+        <div class="card-header p-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0 skewed skewed-yellow text-dark d-inline-block text-uppercase ls-1">Campaigns</h3>
+                </div>
+                <div class="col text-right">
+                    <a asp-action="Create" class="btn btn-create" asp-route-fromHome="0">New</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+            <div class=" table-responsive">
+
+                <table class="table align-items-center table-striped table-bordered" id="datatable-basic">
+                    <thead class="thead-light">
+                        <tr>
+
+                            <th>
+                                Ttile
+                            </th>
+                            <th>
+                                Clinet
+                            </th>
+                            <th>
+                               Budget
+                            </th>
+                            <th>
+                                Expence
+                            </th>
+                            <th>
+                                Profit
+                            </th>
+
+                            <th>
+                                Tar. Impres.
+                            </th>
+
+                            <th>
+                                Gen.Impres.
+                            </th>
+
+
+                            <th>
+                                Link Clicked
+                            </th>
+                            <th>
+                                Gen. Followers
+                            </th>
+
+                            
+
+                            <th class="text-center">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+
+                            <td>
+                                @item.Campaign.Title
+                            </td>
+                            <td>
+                                @item.Campaign.Client.Name
+                            </td>
+
+                            <td>
+                                @item.Campaign.TotalBudget
+                            </td>
+                            @if (item.Campaign.Status == 0 && item.TotalExpence == null)
+                            {
+                                <td style="color:orangered">
+                                    Ongoing
+                                </td>
+                            }
+                            else
+                            {
+
+                                <td>
+                                    @item.TotalExpence
+                                </td>
+                            }
+
+
+                            @{
+                                double? profit = item.Campaign.TotalBudget - item.TotalExpence;
+                            }
+
+
+
+
+                            @if (item.Campaign.Status == 0 && item.TotalExpence == null)
+                            {
+                                <td style="color:orangered">
+                                    Ongoing
+                                </td>
+                            }
+                            else
+                            {
+                                if (profit < 0)
+                                {
+                                    <td style="color:red">
+                                        @profit
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @profit
+                                    </td>
+                                }
+
+                            }
+
+
+                            <td>
+                                @item.Campaign.TargetImpression
+                            </td>
+                            @if (item.TotalImpressionGenerated == null && item.Campaign.Status == 0)
+                            {
+                                <td style="color:orangered">
+                                    Ongoing
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:#2DCE89">
+                                    @item.TotalImpressionGenerated
+                                </td>
+                            }
+
+
+                            @if (item.Campaign.TotalLinkClicked == null && item.Campaign.Status == 0)
+                            {
+                                <td style="color:orangered">
+                                    Ongoing
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:#2DCE89">
+                                    @item.Campaign.TotalLinkClicked
+                                </td>
+                            }
+
+
+
+                            @if (item.Campaign.TotalFollowerIncreament == null && item.Campaign.Status == 0)
+                            {
+                                <td style="color:orangered">
+                                    Ongoing
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:#2DCE89">
+                                    @item.Campaign.TotalFollowerIncreament
+                                </td>
+                            }
+
+
+
+
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    @if (item.Campaign.Status == 0)
+                                    {
+                                        <a class="btn btn-greenyellow btn-sm" asp-action="Edit" asp-route-id="@item.Campaign.Id" asp-route-fromHome="0">Edit</a>
+
+                                        <a class="btn btn-success btn-sm" asp-action="AddActivity" asp-route-id="@item.Campaign.Id" asp-route-fromHome="0">Add Activity</a>
+
+                                    }
+                                    else if (item.Campaign.Status == 1)
+                                    {
+                                        <a class="btn btn-default btn-sm" asp-action="AddActivity" asp-route-id="@item.Campaign.Id" asp-route-fromHome="0">Activities</a>
+                                        <a class="btn btn-primary btn-sm" asp-controller="Campaigns" asp-action="Details" asp-route-id="@item.Campaign.Id">View</a>
+                                        if (item.Campaign.BitlyLink != "" && item.Campaign.BitlyLink != null)
+                                        {
+                                            <a class="btn btn-success btn-sm" target="_blank" href="@item.Campaign.BitlyLink">Track</a>
+                                        }
+                                        <a class="btn btn-warning btn-sm" asp-controller="Campaigns" asp-action="CapmaignReport" asp-route-id="@item.Campaign.Id">Report</a>
+                                    }
+
+
+
+                                </div>
+                            </td>
+                        </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/datatable/js/jquery.dataTables.min.js"></script>
+    <script asp-append-version="true" type="text/javascript" src="~/vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

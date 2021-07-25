@@ -1,0 +1,263 @@
+﻿<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/jszip.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/pdfmake.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/vfs_fonts.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+@*<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/js/ColReorderWithResize.js" asp-append-version="true"></script>*@
+@*<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/colreorder/dataTables.colReorder.js"></script>*@
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/buttons.colVis.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/asset/header.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/moment.min.js"></script>
+<script asp-append-version="true" type="text/javascript" src="~/vendor/datatables.net/plugin/datetime-moment.js"></script>
+<script asp-append-version="true" type="text/javascript">
+    $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+    $.fn.dataTable.moment("DD/MM/YYYY");
+    var e = $("#dt-ss-init");
+    e.length && e.on("init.dt", function () {
+        $(".card-body > div").addClass("border-custom");
+        $("table thead").addClass("thead-light");
+    }).DataTable({
+        initComplete: function (settings, json) {
+            $('div.dt-loading').remove();
+            //alert('DataTables has finished its initialisation.');
+        },
+        dom: "<'row mx-0 before-table-responsive'<'col-sm-12 col-md-8 px-lg-0'B<'d-inline-flex'l>><'col-sm-12 col-md-4'f>>" +
+            "<'row mx-0'<'col-md-6'><'col-md-6'>>" +
+            "<'row mx-0 table-responsive-on-hover'<'col-md-12 px-0'tr>><'row after-table-responsive'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        //colReorder: {
+        //    allowReorder: !0
+        //},
+        responsive: !0,
+        //scrollX: !0,
+        order: [],
+        language: {
+            paginate: {
+                previous: "<i class='fas fa-angle-left'>",
+                next: "<i class='fas fa-angle-right'>",
+            }
+        },
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        autoWidth: !1,
+        stateSave: !0,
+        stateDuration: 0,
+        stateSaveParams: function (settings, data) {
+            delete data.order;
+        },
+        processing: !0,
+        serverSide: !0,
+        paging: true,
+        searching: { regex: true },
+        ajax: {
+            url: ajaxUrl,
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: function (d) {
+                return JSON.stringify(d);
+            }
+        },
+        columns: dtCollumn,
+        columnDefs: [
+            { targets: "no-sort", orderable: false },
+            { targets: "no-search", searchable: false },
+            {
+                targets: "trim",
+                render: function (data, type, full, meta) {
+                    if (type === "display") {
+                        data = strtrunc(data, 10);
+                    }
+
+                    return data;
+                }
+            },
+            { targets: "date-type", type: "date-eu" },
+            //{ "searchable": false, "targets": [-1,] },
+            //{ "orderable": false, "targets": [-1,] },
+
+        ],
+
+        buttons: [
+            {
+                extend: 'copy',
+                className: "btn-copy",
+                exportOptions: {
+                    columns: visibleCol
+                }
+
+            },
+            {
+                extend: 'print',
+                className: "btn-print",
+                exportOptions: {
+                    //rows: ':not(.notPrintable)',
+                    columns: visibleCol,
+                },
+                customize: function (win) {
+                    $(win.document.body).find('th').addClass('display')
+                        .css({
+                            backgroundColor: '#2D4154',
+                            color: '#ffffff',
+                            textAlign: 'center',
+                            width: '25%',
+                            border: '1px solid #000000',
+                            padding: '6px'
+                        });
+
+                    $(win.document.body).find('table').addClass('display').css('font-size', '16px');
+                    $(win.document.body).find('table').addClass('display').css('text-align', 'center');
+
+                    $(win.document.body).find('h1')
+                        .css({
+                            textAlign: 'center',
+                            color: '#000000',
+                            margin: '20px',
+                            fontSize: '18px',
+                        });
+
+                    $(win.document.body)
+                        .addClass('asset-print-body')
+                        .css({
+                            color: '#000000',
+                            margin: '20px'
+                        })
+                        .prepend($('<img />')
+                            .attr('src', padheader)
+                            .addClass('w-100')
+                        );
+
+                    $(win.document.body).find('tbody td')
+                        .css({
+                            border: '1px solid #000000',
+                            padding: '6px'
+                        });
+
+                    //$(win.document.body)
+                    //    .find('table')
+                    //    .addClass('compact')
+                    //    .css();
+                }
+
+            },
+            {
+                extend: 'excelHtml5',
+                className: "btn-excel",
+                exportOptions: {
+                    columns: visibleCol,
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                className: "btn-pdf",
+                filename: 'Exported Documents PDF ',
+                orientation: 'portrait',
+                pageSize: 'A4', //A3 , A5 , A6 , legal , letter
+                exportOptions: {
+                    columns: visibleCol,
+                    search: 'applied',
+                    order: 'applied'
+                },
+                customize: function (doc) {
+                    var header = padheader;
+                    var developer = 'Maintained and Developed by NeuroStorm.';
+                    doc.defaultStyle.fontSize = 8;
+                    doc.defaultStyle.color = 'black';
+                    doc.styles.tableHeader.fontSize = 8;
+                    doc.styles.tableHeader.fillColor = '#2D4154';
+                    doc.styles.tableBodyEven = {
+                        alignment: 'center',
+                    };
+                    doc.styles.tableBodyOdd = {
+                        alignment: 'center',
+                    };
+                    doc['header'] = (function () {
+                        return {
+                            columns: [
+                                {
+                                    alignment: 'center',
+                                    image: header,
+                                    width: 595,
+                                },
+                            ],
+                        }
+                    });
+                    var space = '\u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0';
+                    doc['footer'] = (function (page, pages) {
+                        return {
+                            columns: [
+                                {
+                                    alignment: 'left',
+                                    fontSize: 8,
+                                    color: '#2D4154',
+                                    text: '',
+                                    margin: [20, 20, 0, 0],
+                                    width: '*'
+                                },
+                                {
+                                    alignment: 'left',
+                                    fontSize: 7,
+                                    text: [{ text: space }, 'Page ', { text: page.toString() }, ' of ', { text: pages.toString() }, '\n', { text: [developer] }],
+                                    margin: [40, 25, 0, 0],
+                                    width: '*'
+                                },
+                                {
+                                    alignment: 'right',
+                                    fontSize: 7,
+                                    text: [''],
+                                    margin: [0, 25, 20, 0],
+                                    text: ['\u00A0 \u00A0 Signature', '\n', '---------------'],
+                                    width: '*'
+                                }
+                            ],
+                        }
+                    });
+                    var objLayout = {};
+                    objLayout['hLineWidth'] = function (i) {
+                        return 1;
+                    };
+                    objLayout['hLineWidth'] = function (i) {
+                        return 1;
+                    };
+                    objLayout['vLineWidth'] = function (i) {
+                        return .1;
+                    };
+                    objLayout['hLineColor'] = function (i) {
+                        return '#333';
+                    };
+                    objLayout['vLineColor'] = function (i) {
+                        return '#333';
+                    };
+                    objLayout['paddingLeft'] = function (i) {
+                        return 5;
+                    };
+                    objLayout['paddingRight'] = function (i) {
+                        return 5;
+                    };
+                    objLayout['paddingTop'] = function (i) {
+                        return 3;
+                    };
+                    objLayout['paddingBottom'] = function (i) {
+                        return 3;
+                    };
+                    doc.pageMargins = [20, 100, 20, 50];
+                    doc.content[1].table.widths = "*";
+                    doc.content[1].layout = {
+                        layout: objLayout,
+                    };
+                    //doc.content[1].splice = {
+                    //    splice: (0, 1)
+                    //};
+                }
+            },
+            {
+                extend: 'colvis',
+                className: "btn-colvis",
+                columns: ':gt(0)'
+            }
+        ],
+    });
+</script>
